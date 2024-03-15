@@ -1,6 +1,8 @@
 #include <Control_Surface.h>
 USBMIDI_Interface midi;
 
+//Board Version 1.1
+
 /*
   Logic for a MIDI keyboard powered by a Seeed Studio Xiao SAMD21 with 25 multiplexed buttons - pins 0-4 are input, pins 6-10 are output.
   18 keys, and functions for OCT-, OCT+, SUS, MOD, P, MF, and FF.
@@ -140,19 +142,19 @@ void loop() {
   checkMidi(1, lastDS, 63);
   checkMidi(2, lastGS, 68);
   if(digitalRead(3) == LOW){ //octave down
-    if(lastOctMi == 0)
+  if(lastOctPl == 0)
     {
-      lastOctMi = 1;
-      lastOctPl = 0;
-      if(octaveOffset > -36)
+      lastOctMi = 0;
+      lastOctPl = 1;
+      if(octaveOffset < 36)
       {
         allNotesOff();
-        octaveOffset -= 12;
+        octaveOffset += 12;
       }
     }
   }else
   {
-    lastOctMi = 0;
+    lastOctPl = 0;
   }
   
   if(digitalRead(4) == LOW){ //mf button (medium loud)
@@ -166,20 +168,20 @@ void loop() {
   checkMidi(0, lastB0, 59);
   checkMidi(1, lastE, 64);
   checkMidi(2, lastA, 69);
-  if(digitalRead(3) == LOW){ //octave up
-    if(lastOctPl == 0)
+  if(digitalRead(3) == LOW){ //octave up  
+    if(lastOctMi == 0)
     {
-      lastOctMi = 0;
-      lastOctPl = 1;
-      if(octaveOffset < 36)
+      lastOctMi = 1;
+      lastOctPl = 0;
+      if(octaveOffset > -36)
       {
         allNotesOff();
-        octaveOffset += 12;
+        octaveOffset -= 12;
       }
     }
   }else
   {
-    lastOctPl = 0;
+    lastOctMi = 0;
   }
   
   if(digitalRead(4) == LOW){ //ff button (as loud as possible)
