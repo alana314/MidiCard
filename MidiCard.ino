@@ -2,6 +2,7 @@
 USBMIDI_Interface midi;
 
 /*
+  MidiCard V1.0
   Logic for a MIDI keyboard powered by a Seeed Studio Xiao SAMD21 with 25 multiplexed buttons - pins 0-4 are input, pins 6-10 are output.
   18 keys, and functions for OCT-, OCT+, SUS, MOD, P, MF, and FF.
 */
