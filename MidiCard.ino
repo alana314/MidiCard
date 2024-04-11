@@ -25,7 +25,7 @@ void setup() {
   digitalWrite(8, HIGH);
   digitalWrite(9, HIGH);
   digitalWrite(10, HIGH);
-  Serial.begin(1115200);
+  //Serial.begin(1115200);
   Control_Surface.begin(); 
 }
 
@@ -56,7 +56,7 @@ uint8_t lastAS1 = 0;
 uint8_t lastB1 = 0;
 uint8_t lastC2 = 0;
 uint8_t velocity = 64;
-uint8_t lastVel = 64;
+uint8_t lastVelPressed = 0;
 uint8_t lastSus = 0;
 uint8_t lastMod = 0;
 int8_t octaveOffset = 0;
@@ -66,7 +66,6 @@ uint8_t lastOctMi = 0;
 //check given multiplex row for input, send note on/off
 void checkMidi(uint8_t pin, uint8_t &lastState, uint8_t noteNum) {
   if(digitalRead(pin) == LOW){
-    Serial.println(noteNum);
     if(lastState == 0)
     {
       midi.sendNoteOn(noteNum + octaveOffset, velocity); 
@@ -102,21 +101,20 @@ void loop() {
   checkMidi(4, lastGS1, 68);
   if (digitalRead(5) == LOW)
   { // octave down
-    Serial.println("oct minus");
-    if (lastOctPl == 0)
+    if(lastOctMi == 0)
     {
-      lastOctMi = 0;
-      lastOctPl = 1;
-      if (octaveOffset < 36)
+      lastOctMi = 1;
+      lastOctPl = 0;
+      if(octaveOffset > -36)
       {
         allNotesOff();
-        octaveOffset += 12;
+        octaveOffset -= 12;
       }
     }
   }
   else
   {
-    lastOctPl = 0;
+    lastOctMi = 0;
   }
   
   digitalWrite(6, HIGH);
@@ -131,21 +129,20 @@ void loop() {
   checkMidi(4, lastA1, 69);
   if (digitalRead(5) == LOW)
   { // octave up
-    Serial.println("oct plus");
-    if (lastOctMi == 0)
+    if(lastOctPl == 0)
     {
-      lastOctMi = 1;
-      lastOctPl = 0;
-      if (octaveOffset > -36)
+      lastOctMi = 0;
+      lastOctPl = 1;
+      if(octaveOffset < 36)
       {
         allNotesOff();
-        octaveOffset -= 12;
+        octaveOffset += 12;
       }
     }
   }
   else
   {
-    lastOctMi = 0;
+    lastOctPl = 0;
   }
 
   digitalWrite(7, HIGH);
@@ -161,7 +158,6 @@ void loop() {
   //sus 5
   if (digitalRead(5) == LOW)
   { // sustain
-    Serial.println("sustain");
     if (lastSus == 0)
     {
       midi.sendControlChange(64, 127);
@@ -190,7 +186,6 @@ void loop() {
 
   if (digitalRead(5) == LOW)
   { // modulation
-    Serial.println("modulation");
     if (lastMod == 0)
     {
       midi.sendControlChange(1, 127);
@@ -217,21 +212,25 @@ void loop() {
   checkMidi(3, lastG1, 67);
   checkMidi(4, lastC2, 72);
   
-  if(digitalRead(5) == LOW){ //ff button (as loud as possible)
-    Serial.println("velocity");
-    //toggle between mf, ff, and p
-    if(lastVel == 127)
+  if(digitalRead(5) == LOW){ //toggle between three dynamics
+    if(lastVelPressed == 0)
     {
-      lastVel = 127;
-      velocity = 64;
-    }else if(lastVel == 64)
-    {
-      lastVel = 64;
-      velocity = 100;
-    }else
-    {
-      lastVel = 100;
-      velocity = 127;
+      lastVelPressed = 1;
+      //toggle between mf, ff, and p
+      if(velocity == 127)
+      {
+        velocity = 64;
+      }else if(velocity == 64)
+      {
+        velocity = 100;
+      }else
+      {
+        velocity = 127;
+      }
+    }
+  }else {
+    if(lastVelPressed == 1){
+      lastVelPressed = 0;
     }
   }
   
