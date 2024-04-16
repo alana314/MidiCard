@@ -1,7 +1,7 @@
 #include <Control_Surface.h>
 USBMIDI_Interface midi;
 
-//Board Version 1.1
+//Board Version Plus V1.0
 
 /*
   Logic for a MIDI keyboard powered by a Seeed Studio Xiao SAMD21 with 25 multiplexed buttons - pins 0-4 are input, pins 6-10 are output.
@@ -14,7 +14,7 @@ void setup() {
   pinMode(2, INPUT_PULLUP);
   pinMode(3, INPUT_PULLUP);
   pinMode(4, INPUT_PULLUP);
-  pinMode(5, INPUT_PULLUP); //new
+  pinMode(5, INPUT_PULLUP);
   pinMode(6, OUTPUT);
   pinMode(7, OUTPUT);
   pinMode(8, OUTPUT);
