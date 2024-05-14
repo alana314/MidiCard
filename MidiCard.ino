@@ -25,7 +25,7 @@ void setup() {
   digitalWrite(8, HIGH);
   digitalWrite(9, HIGH);
   digitalWrite(10, HIGH);
-  //Serial.begin(1115200);
+  Serial.begin(1115200);
   Control_Surface.begin(); 
 }
 
@@ -69,6 +69,7 @@ void checkMidi(uint8_t pin, uint8_t &lastState, uint8_t noteNum) {
     if(lastState == 0)
     {
       midi.sendNoteOn(noteNum + octaveOffset, velocity); 
+      Serial.println(noteNum + octaveOffset);
       lastState = 1;
     }
   }else
