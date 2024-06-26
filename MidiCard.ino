@@ -94,7 +94,7 @@ void loop() {
   
   //check column 1
   digitalWrite(6, LOW);
-  delay(5);
+  delay(1); //allow time for high signal to clear
   //check C0, F0, A#0, D#1, G#1, OctMi
   checkMidi(0, lastC0, 48);
   checkMidi(1, lastF0, 53);
@@ -123,7 +123,7 @@ void loop() {
   
   //check column 2
   digitalWrite(7, LOW);
-  delay(5);
+  delay(1); //allow time for high signal to clear
   //check CS0, FS0, B0, E1, A1, OctPl
   checkMidi(0, lastCS0, 49);
   checkMidi(1, lastFS0, 54);
@@ -152,7 +152,7 @@ void loop() {
   
   //check column 3
   digitalWrite(8, LOW);
-  delay(5);
+  delay(1); //allow time for high signal to clear
   //check D0, G0, C1, F1, AS1, Sus
   checkMidi(0, lastD0, 50);
   checkMidi(1, lastG0, 55);
@@ -181,7 +181,7 @@ void loop() {
   
   //check column 4
   digitalWrite(9, LOW);
-  delay(5);
+  delay(1); //allow time for high signal to clear
   //check DS0, GS0, CS1, FS1, B1, Mod
   checkMidi(0, lastDS0, 51);
   checkMidi(1, lastGS0, 56);
@@ -210,7 +210,7 @@ void loop() {
   
   //check column 5
   digitalWrite(10, LOW);
-  delay(5);
+  delay(1); //allow time for high signal to clear
   //check E0, A0, D1, G1, C2, Vel
   checkMidi(0, lastE0, 52);
   checkMidi(1, lastA0, 57);
@@ -225,10 +225,10 @@ void loop() {
       //toggle between mf, ff, and p
       if(velocity == 127)
       {
-        velocity = 64;
-      }else if(velocity == 64)
+        velocity = 50;
+      }else if(velocity == 50)
       {
-        velocity = 100;
+        velocity = 90;
       }else
       {
         velocity = 127;
@@ -241,5 +241,5 @@ void loop() {
   }
   
   digitalWrite(10, HIGH);
-  delay(5); //delay 5ms, refresh rate is plenty fast
+  delay(1); //delay 1ms, refresh rate is plenty fast
 }
