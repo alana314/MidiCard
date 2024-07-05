@@ -84,6 +84,7 @@ void loop() {
   
   //check column 1
   digitalWrite(6, LOW);
+  delay(1); //allow time for high signal to clear
   checkMidi(0, lastG0, 55);
   checkMidi(1, lastC, 60);
   checkMidi(2, lastF, 65);
@@ -106,6 +107,7 @@ void loop() {
   
   //check column 2
   digitalWrite(7, LOW);
+  delay(1); //allow time for high signal to clear
   checkMidi(0, lastGS0, 56);
   checkMidi(1, lastCS, 61);
   checkMidi(2, lastFS, 66);
@@ -127,6 +129,7 @@ void loop() {
   
   //check column 3
   digitalWrite(8, LOW);
+  delay(1); //allow time for high signal to clear
   checkMidi(0, lastA0, 57);
   checkMidi(1, lastD, 62);
   checkMidi(2, lastG, 67);
@@ -138,6 +141,7 @@ void loop() {
   
   //check column 4
   digitalWrite(9, LOW);
+  delay(1); //allow time for high signal to clear
   checkMidi(0, lastAS0, 58);
   checkMidi(1, lastDS, 63);
   checkMidi(2, lastGS, 68);
@@ -165,6 +169,7 @@ void loop() {
   
   //check column 5
   digitalWrite(10, LOW);
+  delay(1); //allow time for high signal to clear
   checkMidi(0, lastB0, 59);
   checkMidi(1, lastE, 64);
   checkMidi(2, lastA, 69);
@@ -189,5 +194,5 @@ void loop() {
   }
   
   digitalWrite(10, HIGH);
-  delay(10); //delay 10ms, refresh rate is plenty fast
+  delay(1); //delay 1ms, refresh rate is plenty fast
 }
