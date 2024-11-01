@@ -1,0 +1,1 @@
+.\atprogram.exe -t atmelice -d ATSAMD21G18A -i SWD program -f MidiCardPlusV2.hex -c verify -f MidiCardPlusV2.hex
