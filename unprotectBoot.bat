@@ -1,0 +1,1 @@
+.\atprogram.exe -t atmelice -d atsamd21g18a -i SWD write -fs -o 0x804000 --values 0xDFE0C7FA
