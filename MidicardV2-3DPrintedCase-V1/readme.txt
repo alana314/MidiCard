@@ -1,0 +1,2 @@
+This is V1 of the case, cover, and black keys for the MidiCard case. I’m still working increasing the size of the retaining springs to keep the cover from sliding around, and perhaps a protective additional layer to protect the keys.
+It can be printed in PLA or PETG without supports. After printing the case, use a hobby knife to cut the slits at the opening of the case to separate the retaining springs.
